@@ -6,6 +6,5 @@
 	#else
 		#define GE_API __declspec(dllimport)
 	#endif
-#else
-	#error Only for Windows
+
 #endif
