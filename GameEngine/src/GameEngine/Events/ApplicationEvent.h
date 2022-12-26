@@ -1,5 +1,6 @@
 #pragma once
 #include <sstream>
+#include "Event.h"
 
 namespace GameEngine {
 
@@ -9,8 +10,8 @@ namespace GameEngine {
 		WindowResizeEvent(unsigned int width, unsigned int height)
 			: m_Width(width), m_Height(height) {}
 
-		inline unsigned int GetWidth() const { return m_width; }
-		inline unsigned int GetHeight() const { return m_height; }
+		inline unsigned int GetWidth() const { return m_Width; }
+		inline unsigned int GetHeight() const { return m_Height; }
 
 		std::string ToString() const override
 		{
@@ -31,7 +32,7 @@ namespace GameEngine {
 		WindowCloseEvent() {}
 
 		EVENT_CLASS_TYPE(WindowClose)
-		EVENT_CLASS_CATEGORY(EventGategoryApplication)
+		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
 	class GE_API AppTickEvent : public Event
@@ -48,7 +49,7 @@ namespace GameEngine {
 	public:
 		AppRenderEvent() {}
 
-		EVENT_CLASS_TYPE(AppRenderEvent)
-			EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		EVENT_CLASS_TYPE(AppRender)
+		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 }

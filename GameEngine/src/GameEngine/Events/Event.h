@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameEngine/Core.h"
+#include "../Core.h"
 
 #include <string>
 #include <functional>
@@ -27,18 +27,18 @@ namespace GameEngine {
 		EventCategoryMouseButton	= BIT(4)
 	};
 
-#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() {return EventType::##type; }\
-								virtual EvenType GetEventType() const override {return GetStaticType(); }\
-								virtual const char* GetName() const override {return #type; }
+#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
+								virtual EventType GetEventType() const override { return GetStaticType(); }\
+								virtual const char* GetName() const override { return #type; }
 
-#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override {return category; }
-
-
-	class GE_API Event
+#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
+	
+	
+	class Event
 	{
 		friend class EventDispatcher;
 	public:
-		virtual EvenType GetEventType() const = 0;
+		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
@@ -75,9 +75,11 @@ namespace GameEngine {
 	private:
 			Event& m_Event;
 	};
+
+	inline std::ostream& operator<<(std::ostream& os, const Event& e)
+	{
+		return os << e.ToString();
+	}
+
 }
 
-inline std::ostream& operator<<(std::ostream& os, const Event& e)
-{
-	return os << e.ToString();
-}
