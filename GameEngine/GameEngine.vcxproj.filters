@@ -4,6 +4,9 @@
     <Filter Include="GameEngine">
       <UniqueIdentifier>{D54F7917-C107-BB64-2A0F-94C016E65555}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\Events">
+      <UniqueIdentifier>{3895b1a7-c215-4e1d-bed4-115f7420b4d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine.h" />
@@ -18,6 +21,18 @@
     </ClInclude>
     <ClInclude Include="src\GameEngine\Log.h">
       <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplicationEvent.h">
+      <Filter>GameEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>GameEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEvent.h">
+      <Filter>GameEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseEvent.h">
+      <Filter>GameEngine\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
