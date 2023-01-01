@@ -13,7 +13,7 @@ namespace GameEngine {
 		KeyEvent(int keycode)
 			: m_KeyCode(keycode) {}
 		
-		int m_KeyCode
+		int m_KeyCode;
 	};
 
 	class GE_API KeyPressedEvent : public KeyEvent

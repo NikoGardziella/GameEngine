@@ -58,7 +58,7 @@ namespace GameEngine {
 		MouseButtonEvent(int button)
 			: m_Button(button) {}
 
-		int m_button;
+		int m_Button;
 	};
 
 	class GE_API MouseButtonPressedEvent : public MouseButtonEvent
@@ -70,8 +70,8 @@ namespace GameEngine {
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseButtonPresedEvent: " << m_button;
-			reutnr ss.str();
+			ss << "MouseButtonPresedEvent: " << m_Button;
+			return ss.str();
 		}
 	};
 
@@ -81,10 +81,10 @@ namespace GameEngine {
 		MouseButtonReleasedEvent(int button)
 			: MouseButtonEvent(button) {}
 
-		std::String ToString() const override
+		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseButtonReleasedEvent: " << m_button;
+			ss << "MouseButtonReleasedEvent: " << m_Button;
 			return ss.str();
 		}
 

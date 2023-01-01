@@ -1,6 +1,7 @@
 #pragma once
 #include "gepch.h"
 #include "../Core.h"
+#include <spdlog/fmt/ostr.h>
 
 
 namespace GameEngine {
@@ -11,7 +12,7 @@ namespace GameEngine {
 		None = 0,
 		WindowClose, WindowResize, WindowFOcus, WindowLostFocus, WindowMoved,
 		AppTick, AppUpdate, AppRender,
-		KeyPressed, KeyReleased,
+		KeyPressed, KeyReleased, KeyTyped,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 
