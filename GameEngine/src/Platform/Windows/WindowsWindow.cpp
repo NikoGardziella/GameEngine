@@ -18,7 +18,7 @@ namespace GameEngine {
 
 	WindowsWindow::~WindowsWindow()
 	{
-		ShutDown();
+		Shutdown();
 	}
 
 	void WindowsWindow::Init(const WindowProps& props)
@@ -29,7 +29,7 @@ namespace GameEngine {
 
 		GE_CORE_INFO("Creating window {0} ({1},{2})", props.Title, props.Width, props.Height);
 		
-		if (s_GLFWInitialized)
+		if (!s_GLFWInitialized)
 		{
 			int success = glfwInit();
 			GE_CORE_ASSERT(success, "could not initialize GLFW!");
@@ -44,7 +44,7 @@ namespace GameEngine {
 	}
 
 
-	void WindowsWindow::ShutDown()
+	void WindowsWindow::Shutdown()
 	{
 		glfwDestroyWindow(m_Window);
 	}

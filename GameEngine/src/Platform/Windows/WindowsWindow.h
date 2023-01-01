@@ -23,7 +23,7 @@ namespace GameEngine {
 
 	private:
 		virtual void Init(const WindowProps& props);
-		virtual void ShutDown();
+		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
 
