@@ -53,6 +53,7 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\gepch.h" />
+    <ClInclude Include="src\GameEngine\ImGui\ImGuiLayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
@@ -71,5 +72,6 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\gepch.cpp" />
+    <ClCompile Include="src\GameEngine\ImGui\ImGuiLayer.cpp" />
   </ItemGroup>
 </Project>

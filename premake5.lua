@@ -13,9 +13,11 @@ workspace "GameEngine"
 	IncludeDir = {}
 	IncludeDir["GLFW"] = "GameEngine/vendor/GLFW/include"
 	IncludeDir["Glad"] = "GameEngine/vendor/GLAD/include"
+	IncludeDir["ImGui"] = "GameEngine/vendor/imgui/include"
 
 	include "GameEngine/vendor/GLFW"
 	include "GameEngine/vendor/Glad"
+	include "GameEngine/vendor/imgui"
 
 project "GameEngine"
 	location "GameEngine"
@@ -39,13 +41,15 @@ project "GameEngine"
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links
 	{
 		"GLFW",
 		"Glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 
