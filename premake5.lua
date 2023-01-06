@@ -13,7 +13,7 @@ workspace "GameEngine"
 	IncludeDir = {}
 	IncludeDir["GLFW"] = "GameEngine/vendor/GLFW/include"
 	IncludeDir["Glad"] = "GameEngine/vendor/GLAD/include"
-	IncludeDir["ImGui"] = "GameEngine/vendor/imgui/include"
+	IncludeDir["ImGui"] = "GameEngine/vendor/imgui"
 
 	include "GameEngine/vendor/GLFW"
 	include "GameEngine/vendor/Glad"

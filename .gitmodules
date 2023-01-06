@@ -6,4 +6,4 @@
 	url = https://github.com/TheCherno/glfw.git
 [submodule "GameEngine/vendor/imgui"]
 	path = GameEngine/vendor/imgui
-	url = git@github.com:ocornut/imgui.git
+	url = git@github.com:TheCherno/imgui.git
