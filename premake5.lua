@@ -78,7 +78,7 @@ project "GameEngine"
 		filter "configurations:Release"
 			defines "GE_RELEASE"
 			buildoptions "/MD"
-			optimize "On"
+			optimize "On" 
 
 		filter "configurations:Dist"
 			defines "GE_DIST"
