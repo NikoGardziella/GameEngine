@@ -8,6 +8,8 @@
 #include "Events/ApplicationEvent.h"
 #include "glm/glm.hpp"
 
+#include "GameEngine/ImGui/ImGuiLayer.h"
+
 namespace GameEngine {
 
 	class GE_API Application
@@ -27,6 +29,7 @@ namespace GameEngine {
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 	private:

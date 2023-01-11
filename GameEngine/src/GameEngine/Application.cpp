@@ -19,6 +19,9 @@ namespace GameEngine {
 		s_Instance = this;
 		m_Window =  std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
@@ -60,11 +63,13 @@ namespace GameEngine {
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
 		//	auto [x, y] = Input::GetMousePosition();
 		//	GE_CORE_TRACE("{0}, {1}", x,y);
 
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+				layer->OnUpdate();
+			m_ImGuiLayer->End();
 			m_Window->OnUpdate();
 		}
 	}
