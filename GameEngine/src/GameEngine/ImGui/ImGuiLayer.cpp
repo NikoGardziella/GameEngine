@@ -48,7 +48,11 @@ namespace GameEngine {
 			style.WindowRounding = 0.0f;
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
-		ImGui_ImplGlfw_Init(window, true);
+
+		Application& app = Application::Get();
+		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
+		
+		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
 
@@ -69,9 +73,9 @@ namespace GameEngine {
 
 	void ImGuiLayer::End()
 	{
-		ImGuiIO& io = ImGui::GetIo();
+		ImGuiIO& io = ImGui::GetIO();
 		Application& App = Application::Get();
-		io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
+		io.DisplaySize = ImVec2(App.GetWindow().GetWidth(), App.GetWindow().GetHeight());
 
 		//rendering
 		ImGui::Render();
@@ -89,7 +93,7 @@ namespace GameEngine {
 	void ImGuiLayer::OnImGuiRender()
 	{
 		static bool show = true;
-		ImGui::ShowDemoWindow(show);
+		ImGui::ShowDemoWindow(&show);
 	}
 
 }
