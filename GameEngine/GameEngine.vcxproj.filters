@@ -1355,6 +1355,9 @@
     <ClCompile Include="src\GameEngine\Application.cpp">
       <Filter>src\GameEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameEngine\ImGui\ImGuiBuild.cpp">
+      <Filter>src\GameEngine\ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="src\GameEngine\ImGui\ImGuiLayer.cpp">
       <Filter>src\GameEngine\ImGui</Filter>
     </ClCompile>
@@ -1367,6 +1370,9 @@
     <ClCompile Include="src\GameEngine\Log.cpp">
       <Filter>src\GameEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\imgui_tables.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
@@ -1376,6 +1382,5 @@
     <ClCompile Include="src\gepch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\ImGui\ImGuiBuild.cpp" />
   </ItemGroup>
 </Project>

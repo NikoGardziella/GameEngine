@@ -75,7 +75,7 @@ namespace GameEngine {
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		Application& App = Application::Get();
-		io.DisplaySize = ImVec2(App.GetWindow().GetWidth(), App.GetWindow().GetHeight());
+		io.DisplaySize = ImVec2((float)App.GetWindow().GetWidth(), (float)App.GetWindow().GetHeight());
 
 		//rendering
 		ImGui::Render();

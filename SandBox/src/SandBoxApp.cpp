@@ -1,5 +1,6 @@
 #include <GameEngine.h>
 
+#include "imgui/imgui.h"
 
 
 class ExampleLayer : public GameEngine::Layer
@@ -17,6 +18,13 @@ public:
 
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_SPACE))
 			GE_INFO("Space pressed");
+	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("test");
+		ImGui::Text("Hello");
+		ImGui::End();
 	}
 
 	void OnEvent(GameEngine::Event& event) override
