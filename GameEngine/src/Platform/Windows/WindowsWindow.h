@@ -4,6 +4,8 @@
 
 #include <GLFW/glfw3.h>
 
+#include "GameEngine/Renderer/GraphicsContext.h"
+
 namespace GameEngine {
 
 	class WindowsWindow : public Window
@@ -28,6 +30,8 @@ namespace GameEngine {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
+
 
 		struct WindowData
 		{
