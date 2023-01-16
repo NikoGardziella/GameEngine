@@ -10,6 +10,8 @@
 
 #include "GameEngine/ImGui/ImGuiLayer.h"
 
+#include "GameEngine/Renderer/Shader.h"
+
 namespace GameEngine {
 
 	class GE_API Application
@@ -34,6 +36,9 @@ namespace GameEngine {
 		LayerStack m_LayerStack;
 
 		unsigned int m_VertexArray, m_VertexBuffer, m_VertexIndex;
+
+		std::unique_ptr<m_Shader> shader;
+
 	private:
 		static Application* s_Instance;
  	};
