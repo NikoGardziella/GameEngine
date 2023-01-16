@@ -10,11 +10,10 @@ namespace GameEngine{
         Shader(const std::string& vertexSrc, const std::string& fragmentSrc);
         ~Shader();
     void Bind() const;
-    void unbind() const;
+    void Unbind() const;
    
     private:
-        u_int32_t m_renderID;
+        uint32_t m_RenderID;
     };
 
-    
 }

@@ -5,7 +5,7 @@
 
 namespace GameEngine {
 		
-	Shader::Shader(const std::string& vertexSrc, const std::string& fragmentSrc))
+	Shader::Shader(const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 		// Create an empty vertex shader handle
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -32,7 +32,7 @@ namespace GameEngine {
 			// We don't need the shader anymore.
 			glDeleteShader(vertexShader);
 
-			GE_CORE_ERROR("{0}", infolog.data());
+			GE_CORE_ERROR("{0}", infoLog.data());
 			GE_CORE_ASSERT(false, "Vertex shader compilation failure!");
 			return ;
 		}
@@ -63,7 +63,7 @@ namespace GameEngine {
 			// Either of them. Don't leak shaders.
 			glDeleteShader(vertexShader);
 
-			GE_CORE_ERROR("{0}", infolog.data());
+			GE_CORE_ERROR("{0}", infoLog.data());
 			GE_CORE_ASSERT(false, "Fragment shader compilation failure!");
 			return ;
 		}
@@ -71,8 +71,8 @@ namespace GameEngine {
 		// Vertex and fragment shaders are successfully compiled.
 		// Now time to link them together into a program.
 		// Get a program object.
-		m_renderID = glCreateProgram();
-		GLuint program = m_renderID;
+		m_RenderID = glCreateProgram();
+		GLuint program = m_RenderID;
 
 		// Attach our shaders to our program
 		glAttachShader(program, vertexShader);
@@ -99,8 +99,8 @@ namespace GameEngine {
 			glDeleteShader(vertexShader);
 			glDeleteShader(fragmentShader);
 
-			GE_CORE_ERROR("{0}", infolog.data());
-			GE_CORE_ASSERT(false, "Shader limk failure!");
+			GE_CORE_ERROR("{0}", infoLog.data());
+			GE_CORE_ASSERT(false, "Shader link failure!");
 			return ;
 		}
 
@@ -117,7 +117,7 @@ namespace GameEngine {
 	{
 		glUseProgram(m_RenderID);
 	}
-	void Shader::unbind() const
+	void Shader::Unbind() const
 	{
 		glUseProgram(0);
 	}

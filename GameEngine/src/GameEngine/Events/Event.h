@@ -1,6 +1,6 @@
 #pragma once
 #include "gepch.h"
-#include "../Core.h"
+#include "Core.h"
 #include <spdlog/fmt/ostr.h>
 
 

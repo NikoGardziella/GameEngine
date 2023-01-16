@@ -17,10 +17,10 @@ namespace GameEngine {
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		GE_CORE_ASSERT(status, "Failed to initialize Glad!");
 
-		GE_CORE_INFO("OpenGL info:");
-		GE_CORE_INFO(" Vendor: {0}", glGetString(GL_VENDOR));
-		GE_CORE_INFO(" Render: {0}", glGetString(GL_RENDER),);
-		GE_CORE_INFO(" Version: {0}", glGetString(GL_VERSION));
+		GE_CORE_ASSERT("OpenGL info:");
+		GE_CORE_ASSERT("Vendor: {0}", glGetString(GL_VENDOR));
+		GE_CORE_ASSERT("Render: {0}", glGetString(GL_RENDER));
+		GE_CORE_ASSERT("Version: {0}", glGetString(GL_VERSION));
 	}
 	void OpenGLContext::SwapBuffer()
 	{
