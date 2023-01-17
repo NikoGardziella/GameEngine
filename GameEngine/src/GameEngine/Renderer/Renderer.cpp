@@ -3,5 +3,5 @@
 
 namespace GameEngine {
 
-    RendererAPI = Renderer::s_rendererAPI = RendererAPI::OpenGL;
+    RendererAPI Renderer::s_RendererAPI = RendererAPI::OpenGL;
 }
