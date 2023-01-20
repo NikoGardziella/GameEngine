@@ -5,6 +5,26 @@
 
 namespace GameEngine {
 
+	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
+	{
+		switch (type)
+		{
+		case GameEngine::ShaderDataType::Float:  	return GL_FLOAT;
+		case GameEngine::ShaderDataType::Float2: 	return GL_FLOAT;
+		case GameEngine::ShaderDataType::Float3: 	return GL_FLOAT;
+		case GameEngine::ShaderDataType::Float4:  	return GL_FLOAT;
+		case GameEngine::ShaderDataType::Mat3:  	return GL_FLOAT;;
+		case GameEngine::ShaderDataType::Mat4:  	return GL_FLOAT;;
+		case GameEngine::ShaderDataType::Int:  		GL_INT;
+		case GameEngine::ShaderDataType::Int2:  	GL_INT;
+		case GameEngine::ShaderDataType::Int3:  	GL_INT;
+		case GameEngine::ShaderDataType::Int4: 		GL_INT;
+		case GameEngine::ShaderDataType::Bool:  	GL_BOOL;
+		}
+		GE_CORE_ASSERT(false, "Unkown ShaderDatatype!");
+		return 0;
+	}
+
 	OpenGLVertexArray::OpenGLVertexArray()
 	{
 		glCreateVertexArrays(1, &m_RendererID);
@@ -18,26 +38,31 @@ namespace GameEngine {
 	{
 		glBindVertexArray(0);
 	}
-	const OpenGLVertexArray::AddVerteBuffer(const std::shared_ptr<VertexBuffer> &vertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer> &vertexBuffer)
 	{
 		glBindVertexArray(m_RendererID);
 		VertexBuffer->Bind();
 		uint32_t index = 0;
-		const &auto layout = m_VertexBuffer->GetLayout();
+		const auto& layout = vertexBuffer->GetLayout();
 		for (const auto& element : layout)
 		{
 			glEnableVertexAttribArray(index);
 			glVertexAttribPointer(index,
-			GetComponentCount(),
-			ShaderDataTypeToOpenGLBaseType(element.Type),
-			element.Normalized ? GL_TRUE : GL_FALSE,
-			layout.GetStride(),
-			(const void*)element.Offset);
+				element.GetComponentCount(),
+				ShaderDataTypeToOpenGLBaseType(element.Type),
+				element.Normalized ? GL_TRUE : GL_FALSE,
+				layout.GetStride(),
+				(const void*)element.Offset);
 			index++;
 		}
+		m_VertexBuffers.push_back(vertexBuffer);
 	}
-	const OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer> &indexBuffer)
+
+	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer> &indexBuffer)
 	{
-		return nullptr;
+		glBindVertexArray(m_RendererID);
+		IndexBuffer->Bind();
+	
+		m_IndexBuffer = indexBuffer;
 	}
 }
