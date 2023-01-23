@@ -2,10 +2,8 @@
 #include "Application.h"
 
 #include "Log.h"
-#include <glad/glad.h>
 
-#include "Input.h"
-#include "Renderer/VertexArray.h"
+#include "GameEngine/Renderer/Renderer.h"
 
 
 namespace GameEngine {
@@ -14,25 +12,7 @@ namespace GameEngine {
 
 	Application* Application::s_Instance = nullptr;
 
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
-	{
-		switch(type)
-			{
-				case GameEngine::ShaderDataType::Float:  	return GL_FLOAT;
-				case GameEngine::ShaderDataType::Float2: 	return GL_FLOAT;
-				case GameEngine::ShaderDataType::Float3: 	return GL_FLOAT;
-				case GameEngine::ShaderDataType::Float4:  	return GL_FLOAT;
-				case GameEngine::ShaderDataType::Mat3:  	return GL_FLOAT;;
-				case GameEngine::ShaderDataType::Mat4:  	return GL_FLOAT;;
-				case GameEngine::ShaderDataType::Int:  		GL_INT;
-				case GameEngine::ShaderDataType::Int2:  	GL_INT;
-				case GameEngine::ShaderDataType::Int3:  	GL_INT;
-				case GameEngine::ShaderDataType::Int4: 		GL_INT;
-				case GameEngine::ShaderDataType::Bool:  	GL_BOOL;
-			}
-			GE_CORE_ASSERT(false, "Unkown ShaderDatatype!");
-			return 0;
-	}
+
 
 	Application::Application()
 	{
@@ -193,19 +173,18 @@ namespace GameEngine {
 		
 		while (m_Running)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 0.1f});
+			RenderCommand::Clear;
+
+			Renderer::BeginScene();
 
 			m_BlueShader->Bind();
-			m_SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-
-
+			Renderer::Submit(m_SquareVA);
+		
 			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-		//	auto [x, y] = Input::GetMousePosition();
-		//	GE_CORE_TRACE("{0}, {1}", x,y);
+			Renderer::Submit(m_VertexArray);
+
+			Renderer::EndScene();
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();

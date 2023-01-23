@@ -11,8 +11,8 @@ namespace GameEngine {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::none: GE_CORE_ASSERT(false, "RenrereAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
+		case RendererAPI::API::none: GE_CORE_ASSERT(false, "RenrereAPI::None is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL: return new OpenGLVertexBuffer(vertices, size);
 		}
 		GE_CORE_ASSERT(false, "Unknown RenderAPI!");
 		return nullptr;
@@ -22,8 +22,8 @@ namespace GameEngine {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::none: GE_CORE_ASSERT(false, "RenrereAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::OpenGL: return new OpenGLIndexBuffer(indices, size);
+			case RendererAPI::API::none: GE_CORE_ASSERT(false, "RenrereAPI::None is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(indices, size);
 		}
 		GE_CORE_ASSERT(false, "Unknown RenderAPI!");
 		return nullptr;
