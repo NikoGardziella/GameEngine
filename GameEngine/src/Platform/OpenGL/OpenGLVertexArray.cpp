@@ -30,6 +30,11 @@ namespace GameEngine {
 		glCreateVertexArrays(1, &m_RendererID);
 	}
 
+	OpenGLVertexArray::~OpenGLVertexArray()
+	{
+		glDeleteVertexArrays(1, &m_RendererID);
+	}
+
 	void OpenGLVertexArray::Bind() const
 	{
 		glBindVertexArray(m_RendererID);
@@ -40,7 +45,7 @@ namespace GameEngine {
 	}
 	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
 	{
-		//GE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Bugger has no layout!");
+		GE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Bugger has no layout!");
 		glBindVertexArray(m_RendererID);
 		vertexBuffer->Bind();
 
