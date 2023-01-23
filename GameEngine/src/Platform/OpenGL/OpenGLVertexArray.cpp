@@ -38,10 +38,12 @@ namespace GameEngine {
 	{
 		glBindVertexArray(0);
 	}
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer> &vertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
 	{
+		//GE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Bugger has no layout!");
 		glBindVertexArray(m_RendererID);
-		VertexBuffer->Bind();
+		vertexBuffer->Bind();
+
 		uint32_t index = 0;
 		const auto& layout = vertexBuffer->GetLayout();
 		for (const auto& element : layout)
@@ -58,10 +60,10 @@ namespace GameEngine {
 		m_VertexBuffers.push_back(vertexBuffer);
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer> &indexBuffer)
+	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
 	{
 		glBindVertexArray(m_RendererID);
-		IndexBuffer->Bind();
+		indexBuffer->Bind();
 	
 		m_IndexBuffer = indexBuffer;
 	}

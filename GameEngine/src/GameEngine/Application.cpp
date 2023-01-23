@@ -5,6 +5,7 @@
 #include <glad/glad.h>
 
 #include "Input.h"
+#include "Renderer/VertexArray.h"
 
 
 namespace GameEngine {
@@ -43,6 +44,7 @@ namespace GameEngine {
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 		
+		m_VertexArray.reset(VertexArray::Create());
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
@@ -52,20 +54,19 @@ namespace GameEngine {
 
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-		{
-			BufferLayout layout = {
-				{ ShaderDataType::Float3, "a_Position" },
-				{ ShaderDataType::Float4, "a_Color" }
-			};
-			m_VertexBuffer->SetLayout(layout);
-		}
-
+		
+		BufferLayout layout = {
+			{ ShaderDataType::Float3, "a_Position" },
+			{ ShaderDataType::Float4, "a_Color" }
+		};
+		m_VertexBuffer->SetLayout(layout);
 		//BufferLayout layout2(layout);
-
-	
+		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 
 		unsigned int indices[3] = { 0, 1, 2};
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
+		
 
 		std::string vertexSrc = R"(
 			#version 330 core
@@ -143,7 +144,7 @@ namespace GameEngine {
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			m_Shader->Bind();
-			glBindVertexArray(m_VertexArray);
+			m_VertexArray->Bind();
 			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 		//	auto [x, y] = Input::GetMousePosition();
 		//	GE_CORE_TRACE("{0}, {1}", x,y);
