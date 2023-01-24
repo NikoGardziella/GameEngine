@@ -14,28 +14,38 @@ public:
 
 	void OnUpdate() override
 	{
-		//GE_INFO("ExampleLayer::Update");
+		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 0.1f });
+		RenderCommand::Clear;
 
-		if (GameEngine::Input::IsKeyPressed(GE_KEY_SPACE))
-			GE_INFO("Space pressed");
+		m_Camera.SetPosition({ 0.5f, 0.5f, 0.0f });
+		m_Camera.SetRotation(45.0f);
+
+		Renderer::BeginScene(m_Camera);
+
+		Renderer::Submit(m_BlueShader, m_SquareVA);
+		Renderer::Submit(m_Shader, m_VertexArray);
+
+		Renderer::EndScene();
 	}
 
 	virtual void OnImGuiRender() override
 	{
-		ImGui::Begin("test");
-		ImGui::Text("Hello");
-		ImGui::End();
+
 	}
 
 	void OnEvent(GameEngine::Event& event) override
 	{
-		//GE_TRACE("{0}", event);
-		if (event.GetEventType() == GameEngine::EventType::KeyPressed)
-		{
-			GameEngine::KeyPressedEvent& e = (GameEngine::KeyPressedEvent&)event;
-			GE_TRACE("{0}", (char)e.GetKeyCode());
-		}
+
 	}
+
+private:
+	std::shared_ptr<Shader> m_Shader;
+	std::shared_ptr<VertexArray> m_VertexArray;
+
+	std::shared_ptr<Shader> m_BlueShader;
+	std::shared_ptr<VertexArray> m_SquareVA;
+
+	OrthographicCamera m_Camera;
 };
 
 class Sandbox : public GameEngine::Application

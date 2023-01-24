@@ -180,18 +180,7 @@ namespace GameEngine {
 		
 		while (m_Running)
 		{
-			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 0.1f});
-			RenderCommand::Clear;
-
-			m_Camera.SetPosition({0.5f, 0.5f, 0.0f});
-			m_Camera.SetRotation(45.0f);
-
-			Renderer::BeginScene(m_Camera);
-
-			Renderer::Submit(m_BlueShader, m_SquareVA);		
-			Renderer::Submit(m_Shader, m_VertexArray);
-
-			Renderer::EndScene();
+			
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
