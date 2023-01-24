@@ -1,19 +1,21 @@
 #pragma once
 #include <string>
 
+#inclue <glm/glm.hpp>
 
 namespace GameEngine{
-    
-    class Shader
-    {
-    public:
-        Shader(const std::string& vertexSrc, const std::string& fragmentSrc);
-        ~Shader();
-    void Bind() const;
-    void Unbind() const;
+	
+	class Shader
+	{
+	public:
+		Shader(const std::string& vertexSrc, const std::string& fragmentSrc);
+		~Shader();
+		void Bind() const;
+		void Unbind() const;
    
-    private:
-        uint32_t m_RenderID;
-    };
+		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
+	private:
+		uint32_t m_RenderID;
+	};
 
 }
