@@ -6,19 +6,15 @@
 #include "Events/Event.h"
 #include "Window.h"
 #include "Events/ApplicationEvent.h"
-#include "glm/glm.hpp"
+
 
 #include "GameEngine/ImGui/ImGuiLayer.h"
 
-#include "GameEngine/Renderer/Shader.h"
-#include "GameEngine/Renderer/Buffer.h"
-#include "GameEngine/Renderer/VertexArray.h"
 
-#include "GameEngine/Renderer/OrthographicCamera.h"
 
 namespace GameEngine {
 
-	class GE_API Application
+	class Application
 	{
 	public:
 		Application();
