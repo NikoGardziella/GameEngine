@@ -150,19 +150,26 @@ public:
 
 
 
-		GameEngine::RenderCommand::Clear;
 		GameEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		GameEngine::RenderCommand::Clear;
 
 		m_Camera.SetPosition(m_CameraPosition);
 		m_Camera.SetRotation(m_CameraRotation);
 
 		GameEngine::Renderer::BeginScene(m_Camera);
-		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-		for (int i = 0; i < 5; i++)
+		glm::vec4 redColor(0.8f, 0.2f, 0.3f, 1.0f);
+		glm::vec4 blueColor(0.2f, 0.3f, 0.8f, 1.0f);
+
+		for (int i = 0; i < 6; i++)
 		{
 			glm::vec3 pos(i * 0.11f, 0.0f, 0.0f);
 			glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+			if (i % 2 == 0)
+				m_BlueShader->UploadUniformFloat4(redColor);
+			else
+				m_BlueShader->UploadUniformFloat4(blueColor);
 			GameEngine::Renderer::Submit(m_BlueShader, m_SquareVA, transform);
 			//GameEngine::Renderer::Submit(m_Shader, m_VertexArray, transform);
 		}
