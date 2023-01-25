@@ -1,13 +1,13 @@
 #include <GameEngine.h>
 
 #include "imgui/imgui.h"
-
+#include <glm/gtc/matrix_transform.hpp>
 
 class ExampleLayer : public GameEngine::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.0f, 1.0f, -1.0f, 1.0f), m_CameraPosition(0.0f)
+		: Layer("Example"), m_Camera(-1.0f, 1.0f, -1.0f, 1.0f), m_CameraPosition(0.0f), m_SquarePosition(0.0f)
 	{
 		m_VertexArray.reset(GameEngine::VertexArray::Create());
 
@@ -36,10 +36,10 @@ public:
 		m_SquareVA.reset(GameEngine::VertexArray::Create());
 
 		float squareVertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f
 		};
 
 		std::shared_ptr<GameEngine::VertexBuffer> squareVB;
@@ -62,6 +62,7 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 			out vec4 v_Color;
@@ -70,7 +71,7 @@ public:
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 
 		)";
@@ -99,13 +100,14 @@ public:
 			layout(location = 0) in vec3 a_Position;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 
 		)";
@@ -140,22 +142,31 @@ public:
 		else if (GameEngine::Input::IsKeyPressed(GE_KEY_DOWN))
 			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
 
+
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_A))
 			m_CameraRotation += m_CameraRotationSpeed * ts;
 		else if (GameEngine::Input::IsKeyPressed(GE_KEY_D))
 			m_CameraRotation -= m_CameraRotationSpeed * ts;
 
 
-		GameEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+
 		GameEngine::RenderCommand::Clear;
+		GameEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 
 		m_Camera.SetPosition(m_CameraPosition);
 		m_Camera.SetRotation(m_CameraRotation);
 
 		GameEngine::Renderer::BeginScene(m_Camera);
+		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-		GameEngine::Renderer::Submit(m_BlueShader, m_SquareVA);
-		GameEngine::Renderer::Submit(m_Shader, m_VertexArray);
+		for (int i = 0; i < 5; i++)
+		{
+			glm::vec3 pos(i * 0.11f, 0.0f, 0.0f);
+			glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+			GameEngine::Renderer::Submit(m_BlueShader, m_SquareVA, transform);
+			//GameEngine::Renderer::Submit(m_Shader, m_VertexArray, transform);
+		}
+		
 
 		GameEngine::Renderer::EndScene();
 	}
@@ -182,10 +193,12 @@ private:
 
 	GameEngine::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 0.1f;
+	float m_CameraMoveSpeed = 2.0f;
 
 	float m_CameraRotation = 0.0f;
 	float m_CameraRotationSpeed = 2.0f;
+
+	glm::vec3 m_SquarePosition;
 };
 
 class Sandbox : public GameEngine::Application
